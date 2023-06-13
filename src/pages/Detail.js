@@ -40,7 +40,7 @@ export function Detail(props) {
   })
 
   const getReviews = async () => {
-    const path = `movies/${moviesId}/reviews`
+    const path = `movies/${movieId}/reviews`
     const querySnapshot = await getDocs(collection(FBDb, path))
     let reviews = []
     querySnapshot.forEach((item) => {
@@ -70,10 +70,10 @@ export function Detail(props) {
     )
   })
 
-  const movieRef = doc(FBDb, "movies", moviesId)
+  const movieRef = doc(FBDb, "movies", movieId)
 
   const getMovie = async () => {
-    let Movie = await getDoc(movieRef)
+    let movie = await getDoc(movieRef)
     if (movie.exists()) {
       setMovieData(movie.data())
       getReviews()
@@ -119,7 +119,7 @@ export function Detail(props) {
           <Col md="8">
             <h2>{movieData.title}</h2>
             <h4>{movieData.genre} </h4>
-            <h5>{movieData.imdb}</h5>
+            <h6>{movieData.imdb}</h6>
             <p>{movieData.synopsis}</p>
             <p>Directors: {movieData.directors} <br /> Producers: {movieData.producers}</p>
             <p>Main Actors: {movieData.actors}  </p>
