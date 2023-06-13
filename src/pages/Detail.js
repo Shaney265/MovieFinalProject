@@ -18,11 +18,11 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { onAuthStateChanged } from "firebase/auth";
 
 export function Detail(props) {
-  const [bookData, setBookData] = useState()
+  const [movieData, setMovieData] = useState()
   const [auth, setAuth] = useState()
-  const [bookReviews, setBookReviews] = useState([])
+  const [movieReviews, setMovieReviews] = useState([])
 
-  let { bookId } = useParams()
+  let { movieId } = useParams()
 
   const FBDb = useContext(FBDbContext)
   const FBStorage = useContext(FBStorageContext)
@@ -40,7 +40,7 @@ export function Detail(props) {
   })
 
   const getReviews = async () => {
-    const path = `books/${bookId}/reviews`
+    const path = `movies/${moviesId}/reviews`
     const querySnapshot = await getDocs(collection(FBDb, path))
     let reviews = []
     querySnapshot.forEach((item) => {
@@ -48,11 +48,11 @@ export function Detail(props) {
       review.id = item.id
       reviews.push(review)
     })
-    setBookReviews(reviews)
+    setMovieReviews(reviews)
   }
 
   // reviews collection
-  const ReviewCollection = bookReviews.map((item) => {
+  const ReviewCollection = movieReviews.map((item) => {
     return (
       <Col md="3">
         <Card>
@@ -70,29 +70,29 @@ export function Detail(props) {
     )
   })
 
-  const bookRef = doc(FBDb, "books", bookId)
+  const movieRef = doc(FBDb, "movies", moviesId)
 
-  const getBook = async () => {
-    let book = await getDoc(bookRef)
-    if (book.exists()) {
-      setBookData(book.data())
+  const getMovie = async () => {
+    let Movie = await getDoc(movieRef)
+    if (movie.exists()) {
+      setMovieData(movie.data())
       getReviews()
     }
     else {
-      // no book exists with the ID
+      // no movie exists with the ID
     }
   }
 
   useEffect(() => {
-    if (!bookData) {
-      getBook(bookId)
+    if (!movieData) {
+      getMovie(movieId)
     }
   })
 
   // function to handle review submission
   const ReviewHandler = async (reviewData) => {
     // create a document inside firestore
-    const path = `books/${bookId}/reviews`
+    const path = `movies/${movieId}/reviews`
     const review = await addDoc(collection(FBDb, path), reviewData)
     // when the user submits a new review, refresh the reviews
     getReviews()
@@ -100,7 +100,7 @@ export function Detail(props) {
 
   const Image = (props) => {
     const [imgPath, setImgPath] = useState()
-    const imgRef = ref(FBStorage, `book_cover/${props.path}`)
+    const imgRef = ref(FBStorage, `movie_cover/${props.path}`)
     getDownloadURL(imgRef).then((url) => setImgPath(url))
 
     return (
@@ -109,20 +109,20 @@ export function Detail(props) {
   }
 
 
-  if (bookData) {
+  if (movieData) {
     return (
       <Container>
         <Row className="my-3">
           <Col md="4">
-            <Image path={bookData.image} />
+            <Image path={movieData.image} />
           </Col>
           <Col md="8">
-            <h2>{bookData.title}</h2>
-            <h4>{bookData.author} </h4>
-            <h5>{bookData.year}</h5>
-            <p>{bookData.summary}</p>
-            <p>ISBN {bookData.isbn10} <br /> ISBN13 {bookData.isbn13}</p>
-            <p>{bookData.pages} pages</p>
+            <h2>{movieData.title}</h2>
+            <h4>{movieData.genre} </h4>
+            <h5>{movieData.imdb}</h5>
+            <p>{movieData.synopsis}</p>
+            <p>Directors: {movieData.directors} <br /> Producers: {movieData.producers}</p>
+            <p>Main Actors: {movieData.actors}  </p>
           </Col>
         </Row>
         <Row className="my-3">
