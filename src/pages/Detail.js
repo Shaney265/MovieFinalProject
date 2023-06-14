@@ -119,9 +119,9 @@ export function Detail(props) {
           <Col md="8">
             <h2>{movieData.title}</h2>
             <h5>{movieData.genre} </h5>
-            <h6> {movieData.imdb} </h6>
+            <h6><a href={movieData.imdb}>{movieData.imdb}</a></h6>
             <p>{movieData.synopsis}</p>
-            <p>Directors: {movieData.directors} <br /> Producers: {movieData.producers}</p>
+            <p> Directors: {movieData.directors} <br /> Producers: {movieData.producers}</p>
             <p>Main Actors: {movieData.actors}  </p>
           </Col>
         </Row>
