@@ -3,9 +3,11 @@ import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import Button from "react-bootstrap/Button"
+import { doc, getDoc } from "firebase/firestore";
 
 import { useState, useEffect, useContext } from "react"
 import { FBAuthContext } from "../contexts/FBAuthContext"
+import { FBDbContext } from "../contexts/FBDbContext"
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { useNavigate } from "react-router-dom"
 
@@ -18,17 +20,67 @@ export function Signup ( props ) {
   const [ validUserName, setValidUserName ] = useState( false )
 
   const FBAuth = useContext( FBAuthContext)
+  const FBDb = useContext ( FBDbContext )
   const navigate = useNavigate()
 
-  const allowedChars = Array.from( "abcdefghijklmnopqrstuvwxyz1234567890_" )
+  const allowedChars = "abcdefghijklmnopqrstuvwxyz1234567890_-" 
+
+  // timer variable
+  let timer 
+
+  // function to check firebase if user already exsists
+const checkUser = async (user) => {
+  const ref = doc( FBDb, "usernames", user )
+  const docSnap = await getDoc( ref )
+  if( docSnap.exists () ) {
+ //user already exsists  
+    console.log ("exsists")
+  }
+
+else{
+  //user doesnt exsist
+  console.log ("doesn't exsists")
+
+}
+}
+
 
   useEffect( () => {
+    let userLength = false
+    let noIllegalChars = false
+
+    // check if the username is of a certian length
+
+    if( username.length < 5 ) {
+      userLength = false
+      console.log ("minimum 5 characters")
+
+    }
+    else{
+      userLength = true
+    }
     // check if username is made of allowedChars
-    // check if username does not exist in Firebase
-    // if both are true then allow signup
-    // else do not allow signup
+
+    const chars = Array.from(username)
+    chars.forEach((chr) => {
+      if( allowedChars.includes(chr) === false) {
+        noIllegalChars = false
+        console.log("illegal character detected")
+      }  
+      else{
+        noIllegalChars = true
+      }
+    })
+
+    // check if username does not exist in Firebase only if the other 2 checks are successful first
+    if (userLength === true && noIllegalChars === true) {
+    clearTimeout ( timer )
+    timer = setTimeout ( () => { checkUser(username) }, 1500 )
+    }
   }, [username])
 
+// if both are true then allow signup
+// else do not allow signup
   useEffect( () => {
     if( email.indexOf('@') > 0 ) {
       setValidEmail( true )
