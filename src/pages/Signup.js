@@ -149,7 +149,7 @@ const AddUserName = async () =>{
                   isInvalid ={validUserName}
                 />
                 <Form.Control.Feedback> Looks Good</Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid">{User}</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">{userNameFeedback}</Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Email address</Form.Label>
