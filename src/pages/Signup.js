@@ -146,8 +146,10 @@ const AddUserName = async () =>{
                   placeholder="unique username"
                   onChange={(evt) => setUserName(evt.target.value)}
                   value={username}
+                  isInvalid ={validUserName}
                 />
-                <Form.Control.Feedback>{userNameFeedback}</Form.Control.Feedback>
+                <Form.Control.Feedback> Looks Good</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">{User}</Form.Control.Feedback>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Email address</Form.Label>
