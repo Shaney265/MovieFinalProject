@@ -24,6 +24,7 @@ import { FBAuthContext } from './contexts/FBAuthContext';
 import { FBDbContext } from './contexts/FBDbContext'
 import { FBStorageContext } from './contexts/FBStorageContext';
 
+
 const FirebaseApp = initializeApp(firebaseConfig)
 const FirebaseAuth = getAuth(FirebaseApp)
 const FirebaseDB = getFirestore(FirebaseApp)
@@ -81,7 +82,10 @@ function App() {
       </FBStorageContext.Provider>
       </FBDbContext.Provider>
       </FBAuthContext.Provider>
+     
     </div>
+
+    
   );
 }
 

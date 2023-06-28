@@ -43,9 +43,9 @@ getDownloadURL(ref(storage, 'movie_cover/KBGuy1.jpg'))
                     <h1 class= "h1"> Welcome to Animation Movie Madness!!</h1>
                     <h1><p></p></h1>
                     <h1></h1>
-                    <h3> Classics, Modern and even Niche Titles</h3>
+                    <h3> Classics, Modern and Niche Titles</h3>
                 
-                <h5><p>A place to browse, search or reaquaint yourself with some wonderful animated movies</p> <p> Feel free to browse existing reviews or sign up to submit your own.</p></h5>
+                <h5><p>A place to browse, search or reaquaint yourself with some wonderful animated movies</p> <p> Feel free to browse and read through all the existing reviews or sign up to submit your own.</p></h5>
                 </center>
             
             
