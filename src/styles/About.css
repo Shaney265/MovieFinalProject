@@ -1,0 +1,15 @@
+.background-test {
+    
+    background-color: rgba(0, 0, 255, 0.3);
+  
+    padding-top:50px;
+    padding-bottom: 50px;
+  }
+  .h1{font-family: Georgia, serif;}
+
+.h3{
+    font-family: "Lucida Console", "Courier New", monospace;
+  }
+.h2 {
+    font-family: "Copperplate", "Papyrus", fantasy;
+  }
