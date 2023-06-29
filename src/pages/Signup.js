@@ -24,31 +24,33 @@ export function Signup ( props ) {
   const FBDb = useContext ( FBDbContext )
   const navigate = useNavigate()
 
-  const allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYTZabcdefghijklmnopqrstuvwxyz1234567890_-" 
+  const allowedChars = "abcdefghijklmnopqrstuvwxyz1234567890_-" 
 
   // timer variable
   let timer 
 
   // function to check firebase if user already exsists
-const checkUser = async (user) => {
+  const checkUser = async (user) => {
   const ref = doc( FBDb, "usernames", user )
   const docSnap = await getDoc( ref )
+ 
   if( docSnap.exists () ) {
  //user already exsists  
- //   console.log ("exsists")
-    setUserNameFeedback("Username already exsists!")
+  console.log ("exsists")
+    
     setValidUserName(false)
-  }
+
+    setUserNameFeedback("Username already exsists!")  }
 
 else{
   //user doesnt exsist
-  //console.log ("doesn't exsists")
-    setUserNameFeedback(null)
+    console.log ("doesn't exsists")
     setValidUserName(true)
+    setUserNameFeedback(null)
+   
 
     }
   }
-
 
   useEffect( () => {
     let userLength = false
@@ -112,7 +114,6 @@ else{
   })
 }
 
-
   const SignUpHandler = () => {
     createUserWithEmailAndPassword( FBAuth, email, password )
     .then( ( user ) => {
@@ -146,11 +147,17 @@ else{
                   type="text"
                   placeholder="unique username"
                   onChange={(evt) => setUserName(evt.target.value)}
+              
                   value={username}
-                  isValid ={validUserName}
+                  isInvalid={userNameFeedback !== null}
+                                     
+                  isValid ={userNameFeedback === null}
                 />
                 <Form.Control.Feedback> Looks Good</Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid">{userNameFeedback}</Form.Control.Feedback>
+              
+              
+                <Form.Control.Feedback  type= "invalid">{userNameFeedback}</Form.Control.Feedback>
+
               </Form.Group>
               <Form.Group>
                 <Form.Label>Email address</Form.Label>
@@ -185,3 +192,4 @@ else{
       </Container>
   )
 }
+
