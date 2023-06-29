@@ -18,13 +18,13 @@ export function Signup ( props ) {
   const [ validPassword, setValidPassword ] = useState( false )
   const [ username, setUserName ] = useState("")
   const [ validUserName, setValidUserName ] = useState( false )
-const [userNameFeedback, setUserNameFeedback] = useState ()
+  const [userNameFeedback, setUserNameFeedback] = useState ()
 
   const FBAuth = useContext( FBAuthContext)
   const FBDb = useContext ( FBDbContext )
   const navigate = useNavigate()
 
-  const allowedChars = "abcdefghijklmnopqrstuvwxyz1234567890_-" 
+  const allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYTZabcdefghijklmnopqrstuvwxyz1234567890_-" 
 
   // timer variable
   let timer 
@@ -36,23 +36,23 @@ const checkUser = async (user) => {
   if( docSnap.exists () ) {
  //user already exsists  
  //   console.log ("exsists")
- setUserNameFeedback ("Username already exsists!")
- setValidUserName(false)
+    setUserNameFeedback("Username already exsists!")
+    setValidUserName(false)
   }
 
 else{
   //user doesnt exsist
   //console.log ("doesn't exsists")
-  setUserNameFeedback(null)
-  setValidUserName(true)
+    setUserNameFeedback(null)
+    setValidUserName(true)
 
-}
-}
+    }
+  }
 
 
   useEffect( () => {
-    let userLength = []
-    let IllegalChars = []
+    let userLength = false
+    let illegalChars = []
 
     // check if the username is of a certian length
 
@@ -70,16 +70,16 @@ else{
 
     chars.forEach((chr) => {
       if( allowedChars.includes(chr) === false) {
-        IllegalChars.push ( chr )
+        illegalChars.push ( chr )
         console.log("illegal character detected")
       }  
      
     })
 
     // check if username does not exist in Firebase only if the other 2 checks are successful first
-    if (userLength === true && IllegalChars.length === 0) {
+    if (userLength === true && illegalChars.length === 0) {
       clearTimeout ( timer )
-    timer = setTimeout ( () => { checkUser(username) }, 800 )
+      timer = setTimeout ( () => { checkUser(username) }, 800 )
     }
   }, [username])
 
@@ -103,11 +103,12 @@ else{
       setValidPassword(false)
     }
   }, [password])
-const AddUserName = async () =>{
-  await setDoc(doc(FBDb, "usernames", username), {
+
+  const AddUserName = async () => {
+    await setDoc(doc(FBDb, "usernames", username), {
     name: username,
     email: email,
-    password: password
+    password: password,
   })
 }
 
@@ -119,7 +120,7 @@ const AddUserName = async () =>{
       // console.log(user)
       // alert user that account has been created
 
-      AddUserName ()
+      AddUserName()
       navigate("/")
     })
     .catch( (error) => {
@@ -146,7 +147,7 @@ const AddUserName = async () =>{
                   placeholder="unique username"
                   onChange={(evt) => setUserName(evt.target.value)}
                   value={username}
-                  isInvalid ={validUserName}
+                  isValid ={validUserName}
                 />
                 <Form.Control.Feedback> Looks Good</Form.Control.Feedback>
                 <Form.Control.Feedback type="invalid">{userNameFeedback}</Form.Control.Feedback>
