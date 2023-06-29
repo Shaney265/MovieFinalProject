@@ -40,7 +40,7 @@ getDownloadURL(ref(storage, 'movie_cover/Contactus3.jpg'))
             <div >
                 <center><h1>
                     </h1> <img id="myimg" src="" alt="Contactus3" /> <h1><p></p></h1>
-                    <h1 class= "h1"> Welcome to Animation Movie Madness!!</h1>
+                    <h1> Welcome to Animation Movie Madness!!</h1>
                     <h1><p></p></h1>
                     <h1></h1>
                     <h3> Classics, Modern and Niche Titles</h3>
