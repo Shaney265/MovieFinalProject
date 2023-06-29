@@ -29,7 +29,7 @@ export function ReviewForm( props ) {
     }
   }
 
-  if( props.user ) {
+  if( props.user && props.reviewed === false ) {
     return(
       <Form onSubmit={ SubmitHandler }>
         <h4>Add a review for this Movie</h4>
