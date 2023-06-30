@@ -14,7 +14,8 @@ import { Contact } from './pages/Contact';
 import { Signup } from './pages/Signup';
 import { Signin } from './pages/Signin';
 import { SignOut } from './pages/Signout';
-import { Detail } from './pages/Detail'
+import { Detail } from './pages/Detail';
+import {Search } from './pages/Search';
 // components
 import { Header } from './components/Header';
 import { Routes, Route } from 'react-router-dom';
@@ -35,7 +36,8 @@ const NavRoutes = [
   { name: "About", goto: "/about" },
   { name: "Contact", goto: "/contact" },
   { name: "Sign in", goto: "/signin" },
-  { name: "Sign up", goto: "/signup" }
+  { name: "Sign up", goto: "/signup" },
+  { name: "Search", goto: "/search"},
 ]
 
 const AuthNavRoutes = [
@@ -43,7 +45,8 @@ const AuthNavRoutes = [
   { name: "About", goto: "/about" },
   { name: "Contact", goto: "/contact" },
   { name: "Profile", goto: "/profile" },
-  { name: "Sign out", goto: "/signout" }
+  { name: "Sign out", goto: "/signout" },
+  { name: "Search", goto: "/search"},
 ]
 
 function App() {
@@ -73,6 +76,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path ="/search" element={<Search />}/>
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
