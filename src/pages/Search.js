@@ -15,7 +15,8 @@ export function Search(props) {
     const [searchValue, setSearchValue] = useState("");
 
     const FBDb = useContext(FBDbContext);
-  
+   
+
     const handleSearchTypeChange = (event) => {
       setSearchType(event.target.value);
     };
@@ -30,7 +31,7 @@ export function Search(props) {
     };
   
     const fetchFilms = async () => {
-      const db = getFirestore();
+      // const db = getFirestore();
       const filmsCollection = collection(FBDb, "movies");
       let q;
   
@@ -41,11 +42,11 @@ export function Search(props) {
         case "year":
           q = query(filmsCollection, where("year", "==", parseInt(searchValue)));
           break;
-        case "director":
-          q = query(filmsCollection, where("director", "==", searchValue));
+        case "directors":
+          q = query(filmsCollection, where("directors", "==", searchValue));
           break;
-        case "genre":
-          q = query(filmsCollection, where("genre", "==", searchValue));
+        case "ratings":
+          q = query(filmsCollection, where("ratings", "==", searchValue));
           break;
         default:
           q = filmsCollection;
@@ -58,7 +59,7 @@ export function Search(props) {
   
     useEffect(() => {
       fetchFilms();
-    }, []);
+    });
   
     return (
     <Container >
@@ -82,7 +83,7 @@ export function Search(props) {
               <input
                 type="radio"
                 value="year"
-                checked={searchType === "year"}
+                checked={searchType == "year"}
                 onChange={handleSearchTypeChange}
               />
               Search by Year
@@ -92,8 +93,8 @@ export function Search(props) {
             <label>
               <input
                 type="radio"
-                value="director"
-                checked={searchType === "director"}
+                value="directors"
+                checked={searchType == "directors"}
                 onChange={handleSearchTypeChange}
               />
               Search by Director
@@ -103,11 +104,11 @@ export function Search(props) {
             <label>
               <input
                 type="radio"
-                value="genre"
-                checked={searchType === "genre"}
+                value="ratings"
+                checked={searchType === "ratings"}
                 onChange={handleSearchTypeChange}
               />
-              Search by Genre
+              Search by Rating
             </label>
           </div>
           <div>
@@ -125,9 +126,9 @@ export function Search(props) {
         {/* Render movies data */}
         {movies.map((movie) => (
           <div key={movie.id}>
-            <h3>{movie.searchname}</h3>
+            <h3>{movie.title}</h3>
             <p>Year: {movie.year}</p>
-            <p>Time: {movie.genre}</p>
+            <p>rating: {movie.ratings}</p>
             <p>Director: {movie.directors}</p>
             
           </div>
