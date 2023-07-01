@@ -44,8 +44,8 @@ export function Search(props) {
         case "director":
           q = query(filmsCollection, where("director", "==", searchValue));
           break;
-        case "time":
-          q = query(filmsCollection, where("time", "==", searchValue));
+        case "genre":
+          q = query(filmsCollection, where("genre", "==", searchValue));
           break;
         default:
           q = filmsCollection;
@@ -74,7 +74,7 @@ export function Search(props) {
                 checked={searchType === "title"}
                 onChange={handleSearchTypeChange}
               />
-              Search by Title
+              Search by Title 
             </label>
           </div>
           <div>
@@ -103,11 +103,11 @@ export function Search(props) {
             <label>
               <input
                 type="radio"
-                value="time"
-                checked={searchType === "time"}
+                value="genre"
+                checked={searchType === "genre"}
                 onChange={handleSearchTypeChange}
               />
-              Search by Time
+              Search by Genre
             </label>
           </div>
           <div>
@@ -125,10 +125,10 @@ export function Search(props) {
         {/* Render movies data */}
         {movies.map((movie) => (
           <div key={movie.id}>
-            <h3>{movie.title}</h3>
+            <h3>{movie.searchname}</h3>
             <p>Year: {movie.year}</p>
-            <p>Time: {movie.time}</p>
-            <p>Director: {movie.director}</p>
+            <p>Time: {movie.genre}</p>
+            <p>Director: {movie.directors}</p>
             
           </div>
         ))}
