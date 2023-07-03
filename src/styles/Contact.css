@@ -1,0 +1,14 @@
+.headingcolor {
+   color: rgb(82, 15, 87);
+   /* text-decoration-line: overline;
+   text-decoration-color: red; */
+
+}
+.textcolor {
+   color: rgb(197, 31, 31);
+}
+.borderdesign {
+    border: 1px solid black;
+    padding: 50px 50px;
+    background-color: lightblue;
+}
