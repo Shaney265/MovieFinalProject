@@ -146,7 +146,7 @@ export function Detail(props) {
       <Container>
         <Row>
           <Col>
-            <h2>Loading...</h2>
+           {ReviewCollection}
           </Col>
         </Row>
       </Container>
