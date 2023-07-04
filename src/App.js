@@ -16,6 +16,8 @@ import { Signin } from './pages/Signin';
 import { SignOut } from './pages/Signout';
 import { Detail } from './pages/Detail';
 import {Search } from './pages/Search';
+import {Profile} from './pages/Profile';
+
 // components
 import { Header } from './components/Header';
 import { Routes, Route } from 'react-router-dom';
@@ -80,6 +82,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path ="/profile" element={<Profile />}/>
           <Route path="/signout" element={ <SignOut/> } />
           <Route path="/detail/:movieId" element={ <Detail/> } />
         </Routes>
