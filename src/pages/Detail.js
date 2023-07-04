@@ -16,6 +16,7 @@ import { FBAuthContext } from '../contexts/FBAuthContext';
 import { doc, getDoc, addDoc, collection, getDocs } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
 import { onAuthStateChanged } from "firebase/auth";
+import '../styles/Details.css'
 
 export function Detail(props) {
   const [movieData, setMovieData] = useState()
@@ -115,18 +116,21 @@ export function Detail(props) {
 
   if (movieData) {
     return (
-      <Container>
+      <Container >
         <Row className="my-3">
           <Col md="4">
             <Image path={movieData.image} />
           </Col>
-          <Col md="8">
-            <h2>{movieData.title}</h2>
-            <h5>{movieData.genre} </h5>
-            <h6><a href={movieData.imdb}>{movieData.imdb}</a></h6>
+          <Col md="8" >
+            <h2 class="headingcolor"><strong>{movieData.title}</strong></h2>
+            <h5> {movieData.genre} </h5>
+            <strong>Year:</strong> {movieData.year}  <br/> <strong> Rating:</strong> {movieData.ratings}
+            <p><strong>Weblink:</strong> <a href={movieData.imdb}>{movieData.imdb}</a></p> 
+            <p></p>
+            <p><strong>Synopsis:</strong></p>
             <p>{movieData.synopsis}</p>
-            <p> Directors: {movieData.directors} <br /> Producers: {movieData.producers}</p>
-            <p>Main Actors: {movieData.actors}  </p>
+            <p> <strong>Directors: </strong> {movieData.directors} <br /> <strong> Producers: </strong> {movieData.producers}</p>
+            <p><strong>Main Actors: </strong>  {movieData.actors}  </p>
           </Col>
         </Row>
         <Row className="my-3">

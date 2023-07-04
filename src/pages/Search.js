@@ -14,7 +14,7 @@ export function Search(props) {
     const [searchType, setSearchType] = useState("title");
     const [searchValue, setSearchValue] = useState("");
 
-    const FBDb = useContext(FBDbContext);
+    // const FBDb = useContext(FBDbContext);
    
 
     const handleSearchTypeChange = (event) => {
@@ -31,19 +31,17 @@ export function Search(props) {
     };
   
     const fetchFilms = async () => {
-      // const db = getFirestore();
-      const filmsCollection = collection(FBDb, "movies");
+      const db = getFirestore();
+      const filmsCollection = collection(db, "movies");
+      
       let q;
-  
+    
       switch (searchType) {
         case "title":
-          q = query(filmsCollection, where("title", "==", searchValue));
+          q = query(filmsCollection, where("titleLower", "==", searchValue.toLowerCase()));
           break;
         case "year":
           q = query(filmsCollection, where("year", "==", parseInt(searchValue)));
-          break;
-        case "directors":
-          q = query(filmsCollection, where("directors", "==", searchValue));
           break;
         case "ratings":
           q = query(filmsCollection, where("ratings", "==", searchValue));
@@ -51,7 +49,7 @@ export function Search(props) {
         default:
           q = filmsCollection;
       }
-  
+    
       const querySnapshot = await getDocs(q);
       const data = querySnapshot.docs.map((doc) => doc.data());
       setFilms(data);
@@ -89,17 +87,8 @@ export function Search(props) {
               Search by Year
             </label>
           </div>
-          <div>
-            <label>
-              <input
-                type="radio"
-                value="directors"
-                checked={searchType == "directors"}
-                onChange={handleSearchTypeChange}
-              />
-              Search by Director
-            </label>
-          </div>
+          
+          
           <div>
             <label>
               <input
@@ -116,7 +105,7 @@ export function Search(props) {
               type="text"
               value={searchValue}
               onChange={handleSearchValueChange}
-              placeholder={`Enter ${searchType}...`}
+              placeholder={`Enter ${searchType}... `}
             />
           </div>
           <div>
@@ -126,10 +115,11 @@ export function Search(props) {
         {/* Render movies data */}
         {movies.map((movie) => (
           <div key={movie.id}>
+            <h1></h1>
             <h3>{movie.title}</h3>
             <p>Year: {movie.year}</p>
             <p>rating: {movie.ratings}</p>
-            <p>Director: {movie.directors}</p>
+            <p>Actors: {movie.actors}</p>
             
           </div>
         ))}
