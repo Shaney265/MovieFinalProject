@@ -12,11 +12,15 @@ import { FBDbContext } from '../contexts/FBDbContext';
 import { FBStorageContext } from '../contexts/FBStorageContext';
 import { AuthContext } from '../contexts/AuthContext';
 import { FBAuthContext } from '../contexts/FBAuthContext';
-
+import { firebaseConfig } from '../config/Config.js'
 import { doc, getDoc, addDoc, collection, getDocs } from "firebase/firestore";
-import { ref, getDownloadURL } from "firebase/storage";
+import { ref, getDownloadURL,getStorage } from "firebase/storage";
 import { onAuthStateChanged } from "firebase/auth";
+import { initializeApp } from 'firebase/app';
 import '../styles/Details.css'
+
+initializeApp(firebaseConfig);
+const storage = getStorage();
 
 export function Detail(props) {
   const [movieData, setMovieData] = useState()
@@ -41,7 +45,7 @@ export function Detail(props) {
     }
   })
 
-  const getReviews = async () => {
+/*   const getReviews = async () => {
     const path = `movies/${movieId}/reviews`
     const querySnapshot = await getDocs(collection(FBDb, path))
     let reviews = []
@@ -54,12 +58,30 @@ export function Detail(props) {
     }
     })
     setMovieReviews(reviews)
-  }
+  } */
+
+  const getReviews = async () => {
+    const path = `movies/${movieId}/reviews`
+    const querySnapshot = await getDocs(collection(FBDb, path));
+    let reviews = [];
+    let userReviewed = false;
+    querySnapshot.forEach((item) => {
+      let review = item.data();
+      review.id = item.id;
+      reviews.push(review);
+      if (review.userid === auth?.uid) {
+        userReviewed = true;
+      }
+    });
+    setMovieReviews(reviews);
+    setReviewed(userReviewed);
+  };
 
   // reviews collection
   const ReviewCollection = movieReviews.map((item) => {
     return (
       <Col md="3">
+        <h1></h1>
         <Card>
           <Card.Body>
             <Card.Title>
@@ -139,21 +161,32 @@ export function Detail(props) {
           </Col>
         </Row>
         <Row>
+          <Col>
           {/* reviews to appear here */}
           {ReviewCollection}
+          </Col>
         </Row>
+        
       </Container>
     )
   }
   else {
     return (
       <Container>
+                <Row>
+          <Col>
+          {/* reviews to appear here */}
+          {ReviewCollection}
+          </Col>
+        </Row>
+        
+     
         <Row>
           <Col>
-           {ReviewCollection}
+            <h2>Loading...</h2>
           </Col>
         </Row>
       </Container>
-    )
-  }
+  );
+}
 }
