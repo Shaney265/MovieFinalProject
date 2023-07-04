@@ -63,7 +63,7 @@ export function Search(props) {
     <Container >
         <Col>
       <div>
-        <h2>Search Films</h2>
+        <h1>Search Movies</h1>
         <form onSubmit={handleSubmit}>
           <div>
             <label>
